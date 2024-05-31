@@ -22,8 +22,8 @@ type UpdateStudentInfo = Pick<Student, "name" | "email">;
 
 function updateStudentProperties(
   student: Student,
-  updatedProperties: Partial<Student>
-) {
+  updatedProperties: Partial<UpdateStudentInfo>
+): Student {
   return { ...student, ...updatedProperties };
 }
 
@@ -32,15 +32,10 @@ student = updateStudentProperties(student, {
   email: "naruto@gmail.com",
 });
 
-var firstName: string = "hinata";
-var age: number = 21;
-var isfemail: boolean = true;
-
 // Type to check if a type is a string or not
 type IsString<T> = T extends string ? "Yes" : "No";
 
-// third
-
+// Employee-Lead
 interface Employee {
   name: string;
   role: string;
@@ -66,7 +61,7 @@ employees[1] = {
   age: 20,
   email: "hina@123",
   phNumber: 12343434,
-  employLead: employees[0],
+  // employLead: employees[0],
 };
 employees[2] = {
   name: "Naro",
@@ -74,7 +69,7 @@ employees[2] = {
   age: 22,
   email: "naru@123",
   phNumber: 12343434,
-  // employLead: employees[0],
+  employLead: employees[0],
 };
 
 employees[3] = {
@@ -86,33 +81,17 @@ employees[3] = {
   // employLead: employees[0],
 };
 
-function employeeIsLead(employee: Employee) {
-  for (let i = 0; i < employees.length; i++) {
-    let lead = employees[i];
-    if (lead.employLead != null && lead.employLead === employee) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function printLeadStatus(employees1: Employee[]) {
-  employees1.forEach((employee) => {
-    if (employeeIsLead(employee)) {
+function printLeadStatus(employees: Employee[]) {
+  employees.forEach((employee) => {
+    if (employee.employLead) {
       console.log(`${employee.name} is Lead`);
     } else {
       console.log(`${employee.name} is not lead`);
     }
   });
 }
+
 printLeadStatus(employees);
 
-// function printLeadStatus(employees: (Employee | Lead)[]): void {
-// const student: Student = { name: "Anji", email: "anji@123.com" };
-// updateStudentProperties(student, { name: "Anjali" });
-// console.log(student);
-
-// type TestString = IsString<string>;
-// type TestNumber = IsString<number>;
-
-// printLeadStatus(employees);
+type TestString = IsString<string>; // Output: "Yes"
+type TestNumber = IsString<number>; // Output: "No"
