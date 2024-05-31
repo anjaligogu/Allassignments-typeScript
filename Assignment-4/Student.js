@@ -25,9 +25,6 @@ student = updateStudentProperties(student, {
     name: "naruto",
     email: "naruto@gmail.com",
 });
-var firstName = "hinata";
-var age = 21;
-var isfemail = true;
 var employees = [];
 employees[0] = {
     name: "Anji",
@@ -43,7 +40,7 @@ employees[1] = {
     age: 20,
     email: "hina@123",
     phNumber: 12343434,
-    employLead: employees[0],
+    // employLead: employees[0],
 };
 employees[2] = {
     name: "Naro",
@@ -51,7 +48,7 @@ employees[2] = {
     age: 22,
     email: "naru@123",
     phNumber: 12343434,
-    // employLead: employees[0],
+    employLead: employees[0],
 };
 employees[3] = {
     name: "kakashi",
@@ -61,18 +58,9 @@ employees[3] = {
     phNumber: 123433434,
     // employLead: employees[0],
 };
-function employeeIsLead(employee) {
-    for (var i = 0; i < employees.length; i++) {
-        var lead = employees[i];
-        if (lead.employLead != null && lead.employLead === employee) {
-            return true;
-        }
-    }
-    return false;
-}
-function printLeadStatus(employees1) {
-    employees1.forEach(function (employee) {
-        if (employeeIsLead(employee)) {
+function printLeadStatus(employees) {
+    employees.forEach(function (employee) {
+        if (employee.employLead) {
             console.log("".concat(employee.name, " is Lead"));
         }
         else {
@@ -81,10 +69,3 @@ function printLeadStatus(employees1) {
     });
 }
 printLeadStatus(employees);
-// function printLeadStatus(employees: (Employee | Lead)[]): void {
-// const student: Student = { name: "Anji", email: "anji@123.com" };
-// updateStudentProperties(student, { name: "Anjali" });
-// console.log(student);
-// type TestString = IsString<string>;
-// type TestNumber = IsString<number>;
-// printLeadStatus(employees);
