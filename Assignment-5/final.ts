@@ -1,4 +1,4 @@
-type Student = {
+type student = {
   name?: string;
   age?: number;
   email?: string;
@@ -6,36 +6,36 @@ type Student = {
   state?: string;
 };
 
-type Teacher = {
-  name: string;
-  subject: string;
-  phoneNo: number;
-  city: string;
-  state: string;
-};
-
-// type RequiredStudent = Required<Student>;
-type RequiredStudent<T> = {
-  [K in keyof T]-?: T[K];
+type Details = {
+  [key: string]: string;
 };
 
 namespace Util {
   export function concatKeysAndValues(obj: {
-    [key: string]: string | Record<string, string>;
+    [key: string]: string | Details;
   }): string {
     let result: string = "";
     for (let key in obj) {
-      result += key + ": " + obj[key] + ", ";
+      if (typeof obj[key] === "string") {
+        result += `${key}: ${obj[key]}, `;
+      } else {
+        result += concatKeysAndValues(obj[key] as Details);
+      }
     }
     return result;
   }
 }
 
-const Data: { [key: string]: string | Record<string, string> } = {
+const Data: { [key: string]: string | Details } = {
   name: "Anjali",
   email: "anjali@123",
   city: "Telangana",
   state: "Telangana",
+  address: {
+    street: "123 Main St",
+    zip: "12345",
+    country: "india",
+  },
 };
 
 console.log(Util.concatKeysAndValues(Data));
