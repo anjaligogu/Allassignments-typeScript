@@ -3,9 +3,12 @@ var Util;
     function concatKeysAndValues(obj) {
         var result = "";
         for (var key in obj) {
-            
-            result += key + ": " + obj[key] + ", ";
-          
+            if (typeof obj[key] === "string") {
+                result += "".concat(key, ": ").concat(obj[key], ", ");
+            }
+            else {
+                result += concatKeysAndValues(obj[key]);
+            }
         }
         return result;
     }
@@ -16,5 +19,10 @@ var Data = {
     email: "anjali@123",
     city: "Telangana",
     state: "Telangana",
+    address: {
+        street: "123 Main St",
+        zip: "12345",
+        country: "india",
+    },
 };
 console.log(Util.concatKeysAndValues(Data));
